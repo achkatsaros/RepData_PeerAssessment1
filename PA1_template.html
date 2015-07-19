@@ -96,6 +96,17 @@ minutes &lt;- max_interval%%100</code></pre>
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
+<pre class="r"><code># calculate the total number of rows with NA's
+na_rows &lt;- sum(is.na(activity_data$steps))</code></pre>
+<p>The total number of missing values in the dataset is <strong>2304</strong>.</p>
+<pre class="r"><code># find the rows where the number of steps is NA and
+# replace it with the average for this interval
+for (i in 1:dim(activity_data)[1]) {
+    if (is.na(activity_data$steps)[i]) {
+        index &lt;- activity_data$interval[i]
+        activity_data$steps[i] &lt;- steps_per_interval$avg_steps[steps_per_interval$interval == index]
+    }
+}</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>

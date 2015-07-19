@@ -76,6 +76,23 @@ The **5 minute interval** which contains the maximum number of steps - on averag
 
 ## Imputing missing values
 
+```{r}
+# calculate the total number of rows with NA's
+na_rows <- sum(is.na(activity_data$steps))
+```
+
+The total number of missing values in the dataset is **`r na_rows`**.
+
+```{r}
+# find the rows where the number of steps is NA and
+# replace it with the average for this interval
+for (i in 1:dim(activity_data)[1]) {
+    if (is.na(activity_data$steps)[i]) {
+        index <- activity_data$interval[i]
+        activity_data$steps[i] <- steps_per_interval$avg_steps[steps_per_interval$interval == index]
+    }
+}
+```
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
