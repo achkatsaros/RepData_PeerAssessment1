@@ -10,7 +10,7 @@ output:
 # include libraries and set default options, not visible in the HTML document
 library(dplyr)
 library(knitr)
-opts_chunk$set(fig.path = "figure/")
+opts_chunk$set(fig.path = "figures/")
 ```
 
 ## Loading and preprocessing the data

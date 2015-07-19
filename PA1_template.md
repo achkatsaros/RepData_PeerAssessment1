@@ -32,7 +32,7 @@ This is the histogram of the total number of steps for each day.
 hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total steps per day', col = 'green')
 ```
 
-![](figure/unnamed-chunk-3-1.png) 
+![](figures/unnamed-chunk-3-1.png) 
 
 
 ```r
@@ -61,7 +61,7 @@ This is the time series plot of the 5-minute interval and the average number of 
 plot(steps_per_interval, type = 'l', main = 'Time series plot of average number of steps', xlab = '5-minute interval', ylab = 'Average number of steps', col = 'blue')
 ```
 
-![](figure/unnamed-chunk-6-1.png) 
+![](figures/unnamed-chunk-6-1.png) 
 
 
 ```r
