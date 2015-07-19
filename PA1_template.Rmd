@@ -1,18 +1,49 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: Achilleas Katsaros
 output: 
   html_document:
     keep_md: true
 ---
 
+```{r setoptions, include=FALSE}
+# include libraries and set default options, not visible in the HTML document
+library(dplyr)
+library(knitr)
+opts_chunk$set(fig.path = "figure/")
+```
 
 ## Loading and preprocessing the data
 
+For this purpose, it is enough to unzip the compressed input file and read the CSV.
 
+```{r}
+activity_data <- read.csv(unzip('activity.zip'))
+```
 
 ## What is mean total number of steps taken per day?
 
+First, a `steps_per_day` data frame is created, with the help of the `dplyr` package.
 
+```{r}
+# group the data frame by date and sum the number of steps, removing NA's
+by_date <- group_by(activity_data, date)
+steps_per_day <- summarize(by_date, sum_steps = sum(steps, na.rm=TRUE))
+```
+
+This is the histogram of the total number of steps for each day.
+
+```{r}
+hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total steps per day', col = 'green')
+```
+
+```{r}
+# calculate the mean and median total number of steps per day
+mean_val <- round(mean(steps_per_day$sum_steps), 2)
+median_val <- median(steps_per_day$sum_steps)
+```
+
+The **mean** and **median** total number of steps per day are `r mean_val` and `r median_val` respectively.
 
 ## What is the average daily activity pattern?
 
