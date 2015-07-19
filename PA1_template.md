@@ -37,11 +37,11 @@ hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per 
 
 ```r
 # calculate the mean and median total number of steps per day
-mean_val <- round(mean(steps_per_day$sum_steps), 2)
-median_val <- median(steps_per_day$sum_steps)
+mean_val <- sprintf('%.2f', mean(steps_per_day$sum_steps))
+median_val <- sprintf('%.2f', median(steps_per_day$sum_steps))
 ```
 
-The **mean** and **median** total number of steps per day are **9354.23** and **10395** respectively.
+The **mean** and **median** total number of steps per day are **9354.23** and **10395.00** respectively.
 
 ## What is the average daily activity pattern?
 
@@ -85,10 +85,12 @@ na_rows <- sum(is.na(activity_data$steps))
 
 The total number of missing values in the dataset is **2304**.
 
+With the following code, the NA's are replaced by the average number of steps for the same interval.
+
 
 ```r
 # find the rows where the number of steps is NA and
-# replace it with the average for this interval
+# replace each of them with the average for the same interval
 for (i in 1:dim(activity_data)[1]) {
     if (is.na(activity_data$steps)[i]) {
         index <- activity_data$interval[i]
@@ -97,5 +99,40 @@ for (i in 1:dim(activity_data)[1]) {
 }
 ```
 
+
+```r
+# recalculate the total number of rows with NA's
+na_rows <- sum(is.na(activity_data$steps))
+```
+
+The total number of missing values in the dataset is **0**.
+
+Now that there are no NA's in the dataset, the `steps_per_day` data frame is recreated.
+
+
+```r
+# group the data frame by date and sum the number of steps
+by_date <- group_by(activity_data, date)
+steps_per_day <- summarize(by_date, sum_steps = sum(steps))
+```
+
+This is the new histogram of the total number of steps for each day.
+
+
+```r
+hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total steps per day', col = 'orangered')
+```
+
+![](figures/unnamed-chunk-12-1.png) 
+
+
+```r
+# recalculate the mean and median total number of steps per day
+mean_val <- sprintf('%.2f', mean(steps_per_day$sum_steps))
+median_val <- sprintf('%.2f', median(steps_per_day$sum_steps))
+```
+
+After imputing the missing values, the **mean** and **median** total number of steps per day are **10766.19** and **10766.19** respectively.  
+The impact of imputing the missing values is that now the mean and the median coincide.
 
 ## Are there differences in activity patterns between weekdays and weekends?
