@@ -127,3 +127,19 @@ After imputing the missing values, the **mean** and **median** total number of s
 The impact of imputing the missing values is that now the mean and the median coincide.
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+A new factor column called `day_type` is added to the data frame.  
+Specifies whether the corresponding date is a `weekday` or a `weekend`.
+
+```{r}
+# add a new factor column 'day_type' for weekdays and weekends
+activity_data <- mutate(activity_data, day_type = ifelse(as.POSIXlt(date)$wday %in% c(0, 6), 'weekend', 'weekday'))
+```
+
+The `steps_per_interval` data frame is recreated and now the grouping is done by interval and day type.
+
+```{r}
+# group the data frame by interval and day type and find the average number of steps
+by_interval <- group_by(activity_data, interval, day_type)
+steps_per_interval <- summarize(by_interval, avg_steps = mean(steps))
+```

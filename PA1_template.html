@@ -125,6 +125,13 @@ median_val &lt;- sprintf('%.2f', median(steps_per_day$sum_steps))</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
+<p>A new factor column called <code>day_type</code> is added to the data frame.<br />Specifies whether the corresponding date is a <code>weekday</code> or a <code>weekend</code>.</p>
+<pre class="r"><code># add a new factor column 'day_type' for weekdays and weekends
+activity_data &lt;- mutate(activity_data, day_type = ifelse(as.POSIXlt(date)$wday %in% c(0, 6), 'weekend', 'weekday'))</code></pre>
+<p>The <code>steps_per_interval</code> data frame is recreated and now the grouping is done by interval and day type.</p>
+<pre class="r"><code># group the data frame by interval and day type and find the average number of steps
+by_interval &lt;- group_by(activity_data, interval, day_type)
+steps_per_interval &lt;- summarize(by_interval, avg_steps = mean(steps))</code></pre>
 </div>
 
 
