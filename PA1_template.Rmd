@@ -143,3 +143,10 @@ The `steps_per_interval` data frame is recreated and now the grouping is done by
 by_interval <- group_by(activity_data, interval, day_type)
 steps_per_interval <- summarize(by_interval, avg_steps = mean(steps))
 ```
+
+This is the time series panel plot of the 5-minute interval and the average number of steps taken, averaged across all weekday or weekend days.
+
+```{r}
+library(lattice)
+xyplot(avg_steps ~ interval | factor(day_type), data = steps_per_interval, type = 'l', layout = c(1, 2), main = 'Time series plot of average number of steps', xlab = '5-minute interval', ylab = 'Average number of steps')
+```
