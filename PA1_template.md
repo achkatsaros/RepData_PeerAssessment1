@@ -29,7 +29,7 @@ This is the histogram of the total number of steps for each day.
 
 
 ```r
-hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total steps per day', col = 'green')
+hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total number of steps per day', col = 'green')
 ```
 
 ![](figures/unnamed-chunk-3-1.png) 
@@ -120,7 +120,7 @@ This is the new histogram of the total number of steps for each day.
 
 
 ```r
-hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total steps per day', col = 'orangered')
+hist(steps_per_day$sum_steps, breaks = 10, main = 'Histogram of total steps per day', xlab = 'Total number of steps per day', col = 'orangered')
 ```
 
 ![](figures/unnamed-chunk-12-1.png) 
@@ -133,12 +133,13 @@ median_val <- sprintf('%.2f', median(steps_per_day$sum_steps))
 ```
 
 After imputing the missing values, the **mean** and **median** total number of steps per day are **10766.19** and **10766.19** respectively.  
-The impact of imputing the missing values is that now the mean and the median coincide.
+The impact of imputing the missing values is that now the mean and the median coincide (they have the same value).
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
 A new factor column called `day_type` is added to the data frame.  
-Specifies whether the corresponding date is a `weekday` or a `weekend`.
+It specifies whether the corresponding date is a `weekday` or a `weekend`.  
+Note here that Sunday is day number 0 and Saturday is day number 6, this is the condition used to categorize the days.
 
 
 ```r
